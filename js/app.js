@@ -1,6 +1,6 @@
 "use-strict";
 
-let allFood = []
+let allMeals = []
 function Food( foodId , foodName , type , price){
     this.foodId = foodId ; 
     this.foodName = foodName ; 
@@ -18,17 +18,21 @@ form.addEventListener("submit" , handleSubmit)
 
 
 function handleSubmit (event){
+    localStorage.clear()
     event.preventDefault()
     let meal = new Food(getRndInteger(1111,9999),event.target.foodName.value , event.target.type.value , event.target.price.value)
-    allFood.push(meal)
+    allMeals.push(meal)
+    let strifyedData = JSON.stringify(allMeals)
+    localStorage.setItem ("All Meals : " ,strifyedData)
+
     meal.render()
     console.log(meal);
     return meal 
-    saveData();
   
 };
 
 Food.prototype.render = function (){
+
     var table = document.getElementById("table");
     var row= document.createElement("tr");
     var td1 = document.createElement("td");
@@ -50,10 +54,6 @@ Food.prototype.render = function (){
 }
 
 
-function saveData() {
-    let strifyedData = JSON.stringify (allFood)
-    localStorage.setItem ( "Meals" , strifyedData)
-}
 
 
 
